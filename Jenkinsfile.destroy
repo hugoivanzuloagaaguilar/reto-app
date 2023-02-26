@@ -1,0 +1,23 @@
+#!groovy?
+node {
+deleteDir()
+stage('Descargar Fuentes') {
+	checkout scm
+}
+stage('Build And Push') {	
+        sh "whoami"	
+	sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 594671381337.dkr.ecr.us-east-1.amazonaws.com"
+	sh "docker build -t repository-node-lab ."
+	sh "docker tag repository-node-lab:latest 594671381337.dkr.ecr.us-east-1.amazonaws.com/repository-node-lab:latest"
+	sh "docker push 594671381337.dkr.ecr.us-east-1.amazonaws.com/repository-node-lab:latest"		
+}
+stage('Terraform Inicializar') {	
+	sh "terraform init"		
+}
+stage('Terraform Plan') {	
+	sh "terraform plan"
+}
+stage('Terraform Destroy') {	
+	sh "terraform destroy --auto-approve"
+}
+}
