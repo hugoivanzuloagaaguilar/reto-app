@@ -25,7 +25,7 @@ stage('Build And Push') {
 stage('Deploy Kubernetes') {	
 	sh "echo Iniciando"
         sh "sed -i 's/#{TAG}/${GIT_COMMIT_SHORT}/g' $WORKSPACE/deployment.yaml"
-	sh "aws eks update-kubeconfig --name reto-inafraestructura --region us-east-1"		
+	sh "aws eks update-kubeconfig --name reto-infraestructura --region us-east-1"		
 	sh "kubectl apply -f deployment.yaml"		
 	sh "kubectl get svc"		
 
