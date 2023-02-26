@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: service-frontend
-        image: 379024051677.dkr.ecr.us-east-1.amazonaws.com/repo-app:#{TAG}
+        image: 379024051677.dkr.ecr.us-east-1.amazonaws.com/reto-app:#{TAG}
         ports:
         - containerPort: 3000
         resources:
