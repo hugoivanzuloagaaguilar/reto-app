@@ -14,13 +14,14 @@ stage('Descargar Fuentes') {
 	}	
 }
 stage('Analisis Sonar') {
-
+	sh """
 	withDockerContainer('sonarsource/sonar-scanner-cli:latest') {
 		sonar-scanner \
 		  -Dsonar.projectKey=reto-app \
 		  -Dsonar.sources=. \
 		  -Dsonar.host.url=http://ec2-35-172-222-171.compute-1.amazonaws.com:9001 \
 		  -Dsonar.login=squ_597d2b3329147642787142254a0ac6398f38931d
+		  """
 	}
 }	
 stage('Build And Push') {
