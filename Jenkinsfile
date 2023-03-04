@@ -13,6 +13,16 @@ stage('Descargar Fuentes') {
 	    GIT_COMMIT_SHORT = GIT_COMMIT.substring(0,8)
 	}	
 }
+stage('Analisis Sonar') {
+
+	withDockerContainer('sonarsource/sonar-scanner-cli:latest') {
+		sonar-scanner \
+		  -Dsonar.projectKey=reto-app \
+		  -Dsonar.sources=. \
+		  -Dsonar.host.url=http://ec2-35-172-222-171.compute-1.amazonaws.com:9001 \
+		  -Dsonar.login=squ_597d2b3329147642787142254a0ac6398f38931d
+	}
+}	
 stage('Build And Push') {
 	sh "whoami"
 	sh "ls -l"
