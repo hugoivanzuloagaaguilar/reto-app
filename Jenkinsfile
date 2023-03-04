@@ -13,9 +13,9 @@ stage('Descargar Fuentes') {
 	    GIT_COMMIT_SHORT = GIT_COMMIT.substring(0,8)
 	}	
 }
-stage('Analisis Sonar') {
-	sh """
+stage("Analisis Sonar") {	
 	withDockerContainer('sonarsource/sonar-scanner-cli:latest') {
+		sh """
 		sonar-scanner \
 		  -Dsonar.projectKey=reto-app \
 		  -Dsonar.sources=. \
